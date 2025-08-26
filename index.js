@@ -1,17 +1,17 @@
-import express from "express";
 import dotenv from "dotenv";
+import express from "express";
+import connectDB from "./src/Db/db.js";
+import videoRouter from "./src/Routes/videosRoutes.js";
 
-dotenv.config();
+// dotenv.config();
+dotenv.config({ path: "./config.env" });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+connectDB();
 
-app.get("/", (req, res) => {
-  console.log("Welcome to VideoTUbe");
-  res.status(200).send("Welcome to Youtube, Arun");
-});
+app.use("/api/video/auth/", videoRouter);
 
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`);
